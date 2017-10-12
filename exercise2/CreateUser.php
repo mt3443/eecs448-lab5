@@ -1,14 +1,11 @@
 <?php
-
-	$userIDs = new mysqli("mysql.eecs.ku.edu", "mtaylor", "P@$$word123", "Users");
+	echo "<html><body>";
+	$userIDs = new mysqli("mysql.eecs.ku.edu", "mtaylor", 'P@$$word123', "mtaylor");
 	
 	if($userIDs->connect_errno) {
 		printf("Connetion failed: %s\n", $userIDs->connect_error);
 		exit();
 	}
-	
-	
-	echo "<html><body>";
 	
 	$username = $_POST["username"];
 	
@@ -29,5 +26,7 @@
 	}
 	
 	$userIDs->close();
+	
+	echo "</body></html>";
 	
 ?>
