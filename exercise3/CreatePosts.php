@@ -5,6 +5,7 @@
 	
 	if($posts->connect_errno) {
 		printf("Connetion failed: %s\n", $posts->connect_error);
+		echo "<br><br><a href='AdminHome.html'><button>Return to menu</button></a></body></html>";
 		exit();
 	}
 	
@@ -13,6 +14,7 @@
 	
 	if(strlen($post) == 0) {
 		echo "Error! Post cannot be blank";
+		echo "<br><br><a href='AdminHome.html'><button>Return to menu</button></a></body></html>";
 		exit();
 	}
 	
@@ -20,12 +22,13 @@
 	$result = $posts->query($query);
 	if($result->num_rows == 0) {
 		echo "Error! " . $username . " is not an existing username.";
+		echo "<br><br><a href='AdminHome.html'><button>Return to menu</button></a></body></html>";
 		exit();
 	} else {
 		$insert = "INSERT INTO Posts (content, author_id) VALUES ('" . $post . "', (SELECT user_id FROM Users WHERE username='" . $username . "'))";
 		$posts->query($insert);
 		echo "Post successfully added!";
 	}
-	
-	echo "</body></html>";
+	$posts->close();
+	echo "<br><br><a href='AdminHome.html'><button>Return to menu</button></a></body></html>";
 ?>
