@@ -1,0 +1,34 @@
+<html>
+	<body>
+		<?php 
+			$connection = new mysqli("mysql.eecs.ku.edu", "mtaylor", 'P@$$word123', "mtaylor");
+	
+			if($connection->connect_errno) {
+				printf("Connetion failed: %s\n", $connection->connect_error);
+				exit();
+			}
+
+			$result = $connection->query("SELECT * FROM Posts");
+			
+			if($result->num_rows == 0) {
+				echo "<h3>There are no posts</h3>";
+				echo "<br><br><a href='AdminHome.html'><button>Return to menu</button></a>";
+			} else {
+				echo "<h3>Select a user from the list below to view their posts</h3>";
+				echo "<form action='ViewUserPosts.php' method='post'><select name='choice'>";
+				
+				$result = $connection->query("SELECT * FROM Users");
+				
+				while($row = mysqli_fetch_array($result)) {
+					echo "<option value='" . $row['username'] . "'>" . $row['username'] . "</option>";
+				}
+				
+				echo "</select><br><br><button type='submit'>Submit</button>";
+			}
+			
+			echo "</form>";
+			
+			$connection->close();
+		?>
+	</body>
+</html>
