@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<link href='style.css' rel='stylesheet'>
+	</head>
+	<body>
+		<?php
+			$connection = new mysqli("mysql.eecs.ku.edu", "mtaylor", 'P@$$word123', "mtaylor");
+			
+			if($connection->connect_errno) {
+				printf("Connetion failed: %s\n", $connection->connect_error);
+				exit();
+			}
+			
+			echo "<form action='DeletePost.php' method='post'>";
+			
+			$result = $connection->query("SELECT * FROM Posts");
+			
+			if($result->num_rows == 0) {
+				echo "<h3>There are no posts</h3><br><br><a href='AdminHome.html'><button>Return to menu</button></a>";
+			} else {
+				echo "<table><th>Post</th><th>Author</th><th>Delete?</th>";
+				
+				while($row = mysqli_fetch_array($result)) {
+					$tempAuthor = $connection->query("SELECT username FROM Users WHERE user_id='" . $row['author_id'] . "'");
+					$author = $tempAuthor->fetch_assoc();
+					echo "<tr><td>" . $row['content'] . "</td><td>" . $author['username'] . "</td><td>" . "<input type='checkbox' name='" . $row['post_id'] . "' value='" . $row['post_id'] . "'></input></td></tr>";
+				}
+			}
+			
+			echo "</form>";
+			$connection->close();
+		?>
+	</body>
+</html>
