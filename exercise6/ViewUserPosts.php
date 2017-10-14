@@ -24,7 +24,7 @@
 		echo "<h3>" . $user . "'s posts</h3>";
 		
 		while($row = $result->fetch_assoc()) {
-			echo "<br>" . $row["content"] . "<br>";
+			echo "<br>" . $row["content"] . "<br><br>";
 		}
 		
 		echo "<br><a href='AdminHome.html'><button>Return to menu</button></a>";
