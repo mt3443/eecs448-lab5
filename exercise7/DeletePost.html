@@ -4,18 +4,18 @@
 	</head>
 	<body>
 		<?php
-			$connection = new mysqli("mysql.eecs.ku.edu", "mtaylor", 'P@$$word123', "mtaylor");
+			$connection = new mysqli("mysql.eecs.ku.edu", "mtaylor", 'P@$$word123', "mtaylor"); //attempt to establish connection
 			
-			if($connection->connect_errno) {
+			if($connection->connect_errno) { //check if connection has been established
 				printf("Connetion failed: %s\n", $connection->connect_error);
 				exit();
 			}
 			
 			$result = $connection->query("SELECT * FROM Posts");
 			
-			if($result->num_rows == 0) {
+			if($result->num_rows == 0) { //check if there are no posts
 				echo "<h3>There are no posts</h3><br><br><a href='AdminHome.html'><button>Return to menu</button></a>";
-			} else {
+			} else { //if there are posts, display a table of posts
 				echo "<form action='DeletePost.php' method='post'>";
 				echo "<table><th>Post</th><th>Author</th><th>Delete?</th>";
 				

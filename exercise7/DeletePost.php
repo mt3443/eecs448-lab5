@@ -1,7 +1,7 @@
 <?php
-	$connection = new mysqli("mysql.eecs.ku.edu", "mtaylor", 'P@$$word123', "mtaylor");
+	$connection = new mysqli("mysql.eecs.ku.edu", "mtaylor", 'P@$$word123', "mtaylor"); //attempt to establish connection
 	
-	if($connection->connect_errno) {
+	if($connection->connect_errno) { //check if connection has been established
 		printf("Connetion failed: %s\n", $connection->connect_error);
 		exit();
 	}
@@ -10,7 +10,7 @@
 	
 	$posts = $connection->query("SELECT * FROM Posts");
 	$check = false;
-	while($row = $posts->fetch_assoc()) {
+	while($row = $posts->fetch_assoc()) { //check if the user did not select any boxes
 		if(isset($_POST[$row['post_id']])) {
 			$check = true;
 		}
@@ -25,7 +25,7 @@
 	
 	echo "<h3>Success! The IDs of the deleted posts are shown below</h3>";
 	
-	while($row = $posts->fetch_assoc()) {
+	while($row = $posts->fetch_assoc()) { //if the user has selected at least one box, delete post and display info
 		if(isset($_POST[$row['post_id']])) {
 			echo $row['post_id'] . "<br>";
 			$delete = "DELETE FROM Posts WHERE post_id='" . $row['post_id'] . "'";
